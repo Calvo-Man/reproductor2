@@ -6,6 +6,7 @@ import { GenerosModule } from './generos/generos.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorModule } from './author/author.module';
+import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [GenerosModule,
@@ -21,6 +22,7 @@ import { AuthorModule } from './author/author.module';
       synchronize: true
     }),
     AuthorModule,
+    PlaylistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
