@@ -9,6 +9,8 @@ import { GenerosController } from './generos.controller';
 @Injectable()
 export class GenerosService {
   constructor(@InjectRepository(Genero) private generoRepository: Repository<Genero>) { }
+
+  
   async create(createGeneroDto: CreateGeneroDto) {
     return await this.generoRepository.insert(createGeneroDto);
   }

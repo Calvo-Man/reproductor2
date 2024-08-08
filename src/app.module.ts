@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { GenerosModule } from './generos/generos.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthorModule } from './author/author.module';
 
 @Module({
   imports: [GenerosModule,
@@ -16,11 +17,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: '',
       database: 'reproductor',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      autoLoadEntities:true,
-      synchronize:true
+      autoLoadEntities: true,
+      synchronize: true
     }),
+    AuthorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
