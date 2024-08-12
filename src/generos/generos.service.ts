@@ -1,10 +1,11 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateGeneroDto } from './dto/create-genero.dto';
 import { UpdateGeneroDto } from './dto/update-genero.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Genero } from './entities/genero.entity';
 import { Repository } from 'typeorm';
-import { GenerosController } from './generos.controller';
+
 
 @Injectable()
 export class GenerosService {
@@ -15,13 +16,16 @@ export class GenerosService {
     return await this.generoRepository.insert(createGeneroDto);
   }
 
-  async findAll(): Promise<Genero[]> {
-    return await this.generoRepository.find();
+  async findAll(): Promise<any> {
+    return await this.generoRepository.find({relations:['canciones']});
   }
 
   async findOne(id: number): Promise<Genero | null> {
 
-    return await this.generoRepository.findOneBy({ id });
+    return await this.generoRepository.findOne({
+      where: { id },
+      relations: ['canciones'],
+    });
   }
 
   async update(id: number, updateGeneroDto: UpdateGeneroDto) {

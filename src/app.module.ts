@@ -1,4 +1,4 @@
-
+/* eslint-disable prettier/prettier */
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -9,17 +9,18 @@ import { AuthorModule } from './author/author.module';
 import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
-  imports: [GenerosModule,
+  imports: [
+    GenerosModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: '12345678',
       database: 'reproductor',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
-      synchronize: true
+      synchronize: true,
     }),
     AuthorModule,
     PlaylistModule,
@@ -27,4 +28,4 @@ import { PlaylistModule } from './playlist/playlist.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
