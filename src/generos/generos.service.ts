@@ -20,7 +20,7 @@ export class GenerosService {
     return await this.generoRepository.find({relations:['canciones']});
   }
 
-  async findOne(id: number): Promise<Genero | null> {
+  async findOne(id: number) {
 
     return await this.generoRepository.findOne({
       where: { id },

@@ -15,7 +15,7 @@ export class Author {
     @Column()
     country:string;
 
-    @OneToMany(() => Cancion, (cancion) => cancion.genero)
+    @OneToMany(() => Cancion, (cancion) => cancion.author)
     canciones: Cancion[];
 
 

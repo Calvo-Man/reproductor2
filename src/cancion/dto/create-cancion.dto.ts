@@ -2,6 +2,8 @@
 
 import { Type } from "class-transformer";
 import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
+//import { Author } from "src/author/entities/author.entity";
+//import { Genero } from "src/generos/entities/genero.entity";
 
 export class CreateCancionDto {
     @IsNotEmpty()
