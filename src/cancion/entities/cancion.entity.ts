@@ -2,7 +2,8 @@
 
 import { Author } from 'src/author/entities/author.entity';
 import { Genero } from 'src/generos/entities/genero.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Playlist } from 'src/playlist/entities/playlist.entity';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Cancion {
@@ -23,5 +24,9 @@ export class Cancion {
 
   @ManyToOne(() => Author, (author) => author.canciones)
   author: Author;
+
+  @ManyToMany(()=>Playlist,(playlist)=>playlist.canciones)
+  @JoinTable()
+  playlists:Playlist[];
 }
   

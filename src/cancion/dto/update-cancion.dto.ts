@@ -5,7 +5,5 @@ import { CreateCancionDto } from './create-cancion.dto';
 //import { Author } from 'src/author/entities/author.entity';
 
 export class UpdateCancionDto extends PartialType(CreateCancionDto) {
-    generoId?: number;
-
-    authorId?: number;
+   
 }

@@ -26,6 +26,10 @@ export class CreateCancionDto {
     @IsNotEmpty()
     @IsNumber()
     authorId: number;
+    
+    @IsNotEmpty()
+    @IsNumber()
+    playlistId?: number;
 
 
 }

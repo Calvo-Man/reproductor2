@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+/* eslint-disable prettier/prettier */
+import { Cancion } from "src/cancion/entities/cancion.entity";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Playlist {
@@ -7,5 +9,8 @@ export class Playlist {
 
     @Column()
     name:string
+
+    @ManyToMany(()=>Cancion,(cancion)=>cancion.playlists)
+    canciones:Cancion[]
 
 }
