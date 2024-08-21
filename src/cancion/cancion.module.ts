@@ -10,10 +10,13 @@ import { GenerosService } from 'src/generos/generos.service';
 import { Author } from 'src/author/entities/author.entity';
 import { AuthorController } from 'src/author/author.controller';
 import { AuthorService } from 'src/author/author.service';
+import { Playlist } from 'src/playlist/entities/playlist.entity';
+import { PlaylistService } from 'src/playlist/playlist.service';
+import { PlaylistController } from 'src/playlist/playlist.controller';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Cancion,Genero,Author])],
-  controllers: [CancionController,GenerosController,AuthorController],
-  providers: [CancionService,GenerosService,AuthorService]
+  imports:[TypeOrmModule.forFeature([Cancion,Genero,Author,Playlist])],
+  controllers: [CancionController,GenerosController,AuthorController,PlaylistController],
+  providers: [CancionService,GenerosService,AuthorService,PlaylistService]
 })
 export class CancionModule {}

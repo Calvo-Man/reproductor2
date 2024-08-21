@@ -7,6 +7,9 @@ import { Cancion } from './entities/cancion.entity';
 import { Repository } from 'typeorm';
 import { Genero } from 'src/generos/entities/genero.entity';
 import { Author } from 'src/author/entities/author.entity';
+import { GenerosService } from 'src/generos/generos.service';
+import { AuthorService } from 'src/author/author.service';
+import { Playlist } from 'src/playlist/entities/playlist.entity';
 
 @Injectable()
 export class CancionService {
@@ -17,21 +20,24 @@ export class CancionService {
     private generoRepository: Repository<Genero>,
     @InjectRepository(Author)
     private authorRepository: Repository<Author>,
+
+    @InjectRepository(Playlist)
+    private playlistRepository: Repository<Playlist>,
+    private generoService: GenerosService,
+    private authorService: AuthorService,
+    
   ) {}
 
   async create(createCancionDto: CreateCancionDto) {
-    const genero = await this.generoRepository.findOne({
-      where: { id: createCancionDto.generoId },
-    });
+
+    const genero = await this.generoService.findOne(createCancionDto.generoId);
     if (!genero) {
       throw new NotFoundException(
         `Genero with ID ${createCancionDto.generoId} not found`,
       );
     }
 
-    const author = await this.authorRepository.findOne({
-      where: { id: createCancionDto.authorId },
-    });
+    const author =await this.authorService.findOne(createCancionDto.authorId);
 
     if (!author) {
       throw new NotFoundException(
@@ -39,16 +45,26 @@ export class CancionService {
       );
     }
 
+    const generoExists =author.generos.some(g => g.id === genero.id);
+    if (!generoExists) {
+      author.generos.push(genero); // Añadir el Genero al Author si no lo tiene
+      await this.authorRepository.save(author);  // Guardar la nueva relación en la base de datos
+    }
+
     const cancion = this.cancionRepository.create({
       ...createCancionDto,
-      genero,
-      author,
+      genero: { id: createCancionDto.generoId },
+      author: { id: createCancionDto.authorId },
     });
+
+   
     return await this.cancionRepository.save(cancion);
   }
 
   async findAll() {
-    const canciones = await this.cancionRepository.find({relations:['genero','author']});
+    const canciones = await this.cancionRepository.find({
+      relations: ['genero', 'author'],
+    });
 
     if (canciones.length === 0) {
       throw new NotFoundException('No songs found');
@@ -71,18 +87,14 @@ export class CancionService {
   }
 
   async update(id: number, updateCancionDto: UpdateCancionDto) {
-    const genero = await this.generoRepository.findOne({
-      where: { id: updateCancionDto.generoId },
-    });
+    const genero = await this.generoService.findOne(updateCancionDto.generoId);
     if (!genero) {
       throw new NotFoundException(
         `Genero with ID ${updateCancionDto.generoId} not found`,
       );
     }
 
-    const author = await this.authorRepository.findOne({
-      where: { id: updateCancionDto.authorId },
-    });
+    const author =await this.authorService.findOne(updateCancionDto.authorId);
 
     if (!author) {
       throw new NotFoundException(

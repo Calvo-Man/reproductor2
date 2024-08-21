@@ -11,6 +11,7 @@ export class Playlist {
     name:string
 
     @ManyToMany(()=>Cancion,(cancion)=>cancion.playlists)
+    
     canciones:Cancion[]
 
 }

@@ -10,6 +10,7 @@ export class AuthorController {
 
   @Post()
   async create(@Body() createAuthorDto: CreateAuthorDto) {
+    console.log(createAuthorDto);
     return await this.authorService.create(createAuthorDto);
   }
 
