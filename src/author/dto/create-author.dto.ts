@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
 
-import { IsNotEmpty,IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Genero } from 'src/generos/entities/genero.entity';
 
 export class CreateAuthorDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 
-    @IsNotEmpty()
-    @IsString()
-    name:string
+  @IsNotEmpty()
+  @IsString()
+  country: string;
 
-    @IsNotEmpty()
-    @IsString()
-    country:string
-
+  @IsArray()
+  @IsNumber({}, { each: true })
+  generos: Genero[];
 }

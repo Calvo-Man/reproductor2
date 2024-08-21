@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
 
 import { Type } from "class-transformer";
-import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
-//import { Author } from "src/author/entities/author.entity";
-//import { Genero } from "src/generos/entities/genero.entity";
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+
 
 export class CreateCancionDto {
     @IsNotEmpty()
@@ -13,6 +12,10 @@ export class CreateCancionDto {
     @IsNotEmpty()
     @IsString()
     photo:string;
+
+    @IsNotEmpty()
+    @IsString()
+    mp3:string;
 
     @IsNotEmpty()
     @IsDate()
@@ -27,7 +30,7 @@ export class CreateCancionDto {
     @IsNumber()
     authorId: number;
     
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     playlistId?: number;
 
